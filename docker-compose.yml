@@ -1,0 +1,66 @@
+services:
+  api:
+    build: ./api
+    container_name: fastapi_api
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+      - router
+
+  router:
+    build: ./router
+    container_name: router_agent
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - API_KEY=${OPENAI_API_KEY}
+    depends_on:
+      - redis
+      - agent_knowledge
+      - agent_support
+      - agent_custom
+    volumes:
+      - ./utils:/app/utils
+
+  agent_knowledge:
+    build: ./agents/agent_knowledge
+    container_name: agent_knowledge
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+    volumes:
+      - ./utils:/app/utils
+
+  agent_support:
+    build: ./agents/agent_support
+    container_name: agent_support
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+    volumes:
+      - ./utils:/app/utils
+
+  agent_custom:
+    build: ./agents/agent_custom
+    container_name: agent_custom
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+    volumes:
+      - ./utils:/app/utils
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"

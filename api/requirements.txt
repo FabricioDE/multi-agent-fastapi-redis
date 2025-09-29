@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+redis
+langchain
+pydantic
+openai
+starlette

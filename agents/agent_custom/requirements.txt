@@ -1,0 +1,11 @@
+langchain
+langchain-openai
+langchain-community
+openai
+redis
+ddgs
+wikipedia
+langchain_community
+beautifulsoup4
+lxml
+html5lib
