@@ -63,6 +63,8 @@ Steps to configure the environment locally:
 
 ## Testing
 
+The testing approach was designed with the importance of real-time communication between agents using Redis streams in mind, as well as endpoint availability. There is still room to apply more comprehensive testing on class methods.
+
 To perform tests on each container, follow these steps:
 
 1. Run the command to list all running containers:
